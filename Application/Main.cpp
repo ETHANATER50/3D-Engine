@@ -1,28 +1,57 @@
+#include "pch.h"
 #include <glad/glad.h>
-#include "SDL.h"
+#include "Engine/Graphics/Renderer.h"
 
 int main(int argc, char** argv) {
 
-	int result = SDL_Init(SDL_INIT_VIDEO); 
+	ew::Renderer renderer;
+	renderer.startup();
+	renderer.create("OpenGL", 800, 600);
 
-	if (result != 0) { 
-		SDL_Log("Unable to initialize SDL: %s", SDL_GetError()); 
-	}
+	float vertices[] = {
+		-0.5f, -0.5f, 0,
+		0.0f, 0.5f, 0,
+		0.5f, -0.5f, 0
+	};
 
-	SDL_Window* window = SDL_CreateWindow("OpenGL", 100, 100, 800, 600, SDL_WINDOW_OPENGL); 
+	const char* vertexShaderSource = "#version 430 core\n"
+		"layout (location = 0) in vec3 vs_position;\n"
+		"void main()\n"
+		"{\n"
+		"	gl_position = vec4(vs_position.x, vs_position.y, vs_position.z, 1.0);\n"
+		"}\0";
 
-	if (window == nullptr) { 
-		SDL_Log("Failed to create window: %s", SDL_GetError()); 
-	}
+	const char* fragmentShaderSource = "#version 430 core\n"
+		"out vec4 out_color;\n"
+		"void main()\n"
+		"{\n"
+		"	out_color = vec4(0.0f, 1.0f, 0.0f, 1.0f);\n"
+		"}\0";
 
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); 
-	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1); 
-	SDL_GL_SetSwapInterval(1); 
-	SDL_GLContext context = SDL_GL_CreateContext(window); 
-	if (!gladLoadGL()) { 
-		SDL_Log("Failed to create OpenGL context"); 
-		exit(-1); 
-	}
+
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glEnableVertexAttribArray(0);
+
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+	glCompileShader(vertexShader);
+
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+	glCompileShader(fragmentShader);
+
+	GLuint program = glCreateProgram();
+	glAttachShader(program, vertexShader);
+	glAttachShader(program, fragmentShader);
+	glLinkProgram(program);
+
+	glUseProgram(program);
+
 
 	bool quit = false; 
 
@@ -40,21 +69,11 @@ int main(int argc, char** argv) {
 		}
 		SDL_PumpEvents(); 
 
-		glClearColor(0.85f, 0.85f, 0.85f, 1.0f); 
-		glClear(GL_COLOR_BUFFER_BIT);
+		renderer.beginFrame();
 
-		glBegin(GL_TRIANGLES); 
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(-0.5f, -0.5f); 
-		glColor3f(0.0f, 1.0f, 0.0f); 
-		glVertex2f(0.0f, 0.5f); 
-		glColor3f(0.0f, 0.0f, 1.0f); 
-		glVertex2f(0.5f, -0.5f); 
-		
-		glEnd();
-
-		SDL_GL_SwapWindow(window);
+		renderer.endFrame();
 	}
 	return 0;
 }
