@@ -11,8 +11,11 @@ namespace ew {
 		bool create(const std::string& name, void* _renderer) override;
 		void destroy() override;
 
+		bool createTexture(const std::string& filename, GLenum target = GL_TEXTURE_2D, GLuint unit = GL_TEXTURE0);
+
 	protected:
-		SDL_Texture* texture{ nullptr };
-		SDL_Renderer* renderer{ nullptr };
+		GLenum target{ GL_TEXTURE_2D }; 
+		GLuint unit{ GL_TEXTURE0 }; 
+		GLuint texture{ 0 };
 	};
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <glad/glad.h>
 #include "Engine/Graphics/Renderer.h"
+#include "Engine/Graphics/Program.h"
 
 int main(int argc, char** argv) {
 
@@ -10,15 +11,15 @@ int main(int argc, char** argv) {
 
 	float vertices[] = {
 		-0.5f, -0.5f, 0, 1.0f, 0, 0,
-		0.0f, 0.5f, 0, 1.0f, 0, 0,
-		0.5f, -0.5f, 0, 1.0f, 0, 0
+		0.0f, 0.5f, 0, 0, 1.0f, 0,
+		0.5f, -0.5f, 0, 0, 0, 1.0f
 	};
 
-	std::string vertexShaderSource;
-	ew::readFileToString("\\shaders\\basic.vert", vertexShaderSource);
-
-	std::string fragmentShaderSource;
-	ew::readFileToString("\\shaders\\basic.frag", fragmentShaderSource);
+	ew::Program program; 
+	program.createShaderFromFile("shaders\\basic.vert", GL_VERTEX_SHADER); 
+	program.createShaderFromFile("shaders\\basic.frag", GL_FRAGMENT_SHADER); 
+	program.link();
+	program.use();
 
 
 
@@ -33,22 +34,22 @@ int main(int argc, char** argv) {
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),(void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const char* str = vertexShaderSource.c_str();
-	glShaderSource(vertexShader, 1, &str, nullptr);
-	glCompileShader(vertexShader);
+	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	//const char* str = vertexShaderSource.c_str();
+	//glShaderSource(vertexShader, 1, &str, nullptr);
+	//glCompileShader(vertexShader);
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	str = fragmentShaderSource.c_str();
-	glShaderSource(fragmentShader, 1, &str, nullptr);
-	glCompileShader(fragmentShader);
+	//GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	//str = fragmentShaderSource.c_str();
+	//glShaderSource(fragmentShader, 1, &str, nullptr);
+	//glCompileShader(fragmentShader);
 
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
+	//GLuint program = glCreateProgram();
+	//glAttachShader(program, vertexShader);
+	//glAttachShader(program, fragmentShader);
+	//glLinkProgram(program);
 
-	glUseProgram(program);
+	//glUseProgram(program);
 
 
 	bool quit = false; 
