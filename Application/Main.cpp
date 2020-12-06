@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include "Engine/Graphics/Renderer.h"
 #include "Engine/Graphics/Program.h"
+#include "Engine/Graphics/Texture.h"
 
 int main(int argc, char** argv) {
 
@@ -10,9 +11,9 @@ int main(int argc, char** argv) {
 	renderer.create("OpenGL", 800, 600);
 
 	float vertices[] = {
-		-0.5f, -0.5f, 0, 1.0f, 0, 0,
-		0.0f, 0.5f, 0, 0, 1.0f, 0,
-		0.5f, -0.5f, 0, 0, 0, 1.0f
+		-0.5f, -0.5f, 0, 1.0f, 0, 0, 0, 0,
+		0.0f, 0.5f, 0, 0, 1.0f, 0, 0.5f, 1.0f, 
+		0.5f, -0.5f, 0, 0, 0, 1.0f, 1.0f, 0
 	};
 
 	ew::Program program; 
@@ -28,29 +29,21 @@ int main(int argc, char** argv) {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),(void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	//const char* str = vertexShaderSource.c_str();
-	//glShaderSource(vertexShader, 1, &str, nullptr);
-	//glCompileShader(vertexShader);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float),(void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
-	//GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	//str = fragmentShaderSource.c_str();
-	//glShaderSource(fragmentShader, 1, &str, nullptr);
-	//glCompileShader(fragmentShader);
+	glm::mat4 transform = glm::mat4(1.0f);
+	program.setUniform("transform", transform);
 
-	//GLuint program = glCreateProgram();
-	//glAttachShader(program, vertexShader);
-	//glAttachShader(program, fragmentShader);
-	//glLinkProgram(program);
-
-	//glUseProgram(program);
-
+	ew::Texture texture;
+	texture.createTexture("textures\\llama.jpg");
+	
 
 	bool quit = false; 
 
@@ -67,6 +60,10 @@ int main(int argc, char** argv) {
 			}
 		}
 		SDL_PumpEvents(); 
+
+
+		transform = glm::rotate(transform, 0.001f, glm::vec3(0, 0, 1));
+		program.setUniform("transform", transform);
 
 		renderer.beginFrame();
 

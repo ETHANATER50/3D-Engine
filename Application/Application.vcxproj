@@ -195,6 +195,9 @@
     <None Include="..\Build\Shaders\basic.frag" />
     <None Include="..\Build\Shaders\Basic.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Build\Textures\llama.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
