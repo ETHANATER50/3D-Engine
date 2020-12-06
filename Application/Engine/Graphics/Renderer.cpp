@@ -40,11 +40,18 @@ namespace ew {
 			SDL_Log("Failed to create OpenGL context");
 			exit(-1);
 		}
+
+		glViewport(0, 0, width, height);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
+
+
 		return true;
 	}
 	void Renderer::beginFrame() {
 		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	void Renderer::endFrame() {
 		SDL_GL_SwapWindow(window);
