@@ -28,6 +28,12 @@
     <Filter Include="Source\Engine\Resources">
       <UniqueIdentifier>{6ed073df-10e8-45fd-8eec-21cc903f8eb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{c2498a7d-0bee-4ae6-947f-836d3e91e028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{b74242a5-d6a4-4e10-a945-907783e0daf9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Graphics\Texture.cpp">
       <Filter>Source\Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Core\File.cpp">
+      <Filter>Source\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,5 +107,16 @@
     <ClInclude Include="Engine\Graphics\Texture.h">
       <Filter>Source\Engine\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Core\File.h">
+      <Filter>Source\Engine\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\Shaders\Basic.vert">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Build\Shaders\basic.frag">
+      <Filter>Resources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

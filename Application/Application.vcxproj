@@ -161,6 +161,7 @@
     </ClCompile>
     <ClCompile Include="Engine\Core\Assert.cpp" />
     <ClCompile Include="Engine\Core\EventManager.cpp" />
+    <ClCompile Include="Engine\Core\File.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
     <ClCompile Include="Engine\Graphics\Renderer.cpp" />
     <ClCompile Include="Engine\Graphics\Texture.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Engine\Core\Assert.h" />
     <ClInclude Include="Engine\Core\EventManager.h" />
     <ClInclude Include="Engine\Core\Factory.h" />
+    <ClInclude Include="Engine\Core\File.h" />
     <ClInclude Include="Engine\Core\Singleton.h" />
     <ClInclude Include="Engine\Core\System.h" />
     <ClInclude Include="Engine\Core\Timer.h" />
@@ -185,6 +187,10 @@
     <ClInclude Include="Engine\Resources\Resource.h" />
     <ClInclude Include="Engine\Resources\ResourceManager.h" />
     <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Build\Shaders\basic.frag" />
+    <None Include="..\Build\Shaders\Basic.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
