@@ -151,6 +151,12 @@
     <None Include="..\Build\Shaders\basic.frag">
       <Filter>Resources\Shaders</Filter>
     </None>
+    <None Include="..\Build\Shaders\gouraud.frag">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="..\Build\Shaders\gouraud.vert">
+      <Filter>Resources\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Build\Textures\llama.jpg">

@@ -200,6 +200,8 @@
   <ItemGroup>
     <None Include="..\Build\Shaders\basic.frag" />
     <None Include="..\Build\Shaders\Basic.vert" />
+    <None Include="..\Build\Shaders\gouraud.frag" />
+    <None Include="..\Build\Shaders\gouraud.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Build\Textures\llama.jpg" />

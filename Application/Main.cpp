@@ -13,52 +13,114 @@ int main(int argc, char** argv) {
 	//	0.5f, -0.5f, 0, 0, 0, 1.0f, 1.0f, 0
 	//};
 
-	static float vertices[] = {
-		-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
-		-1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
+	//static float vertices[] = {
+	//	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+	//	 1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
+	//	 1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
+	//	-1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
 
-		-1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-		 1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
-		 1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-		-1.0f,  1.0f, -1.0f, 1.0f, 1.0f
-	};
+	//	-1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	//	 1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
+	//	 1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+	//	-1.0f,  1.0f, -1.0f, 1.0f, 1.0f
+	//};
 
-	static GLushort indices[] = {
-		0, 1, 2, 
-		2, 3, 0,
+	//static GLushort indices[] = {
+	//	0, 1, 2, 
+	//	2, 3, 0,
 
-		1, 5, 6, 
-		6, 2, 1,
+	//	1, 5, 6, 
+	//	6, 2, 1,
 
-		7, 6, 5, 
-		5, 4, 7,
+	//	7, 6, 5, 
+	//	5, 4, 7,
 
-		4, 0, 3,
-		3, 7, 4,
+	//	4, 0, 3,
+	//	3, 7, 4,
 
-		4, 5, 1,
-		1, 0, 4,
+	//	4, 5, 1,
+	//	1, 0, 4,
 
-		3, 2, 6,
-		6, 7, 3
+	//	3, 2, 6,
+	//	6, 7, 3
+	//};
+
+	static float vertices[] =
+	{
+		-1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+		 1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+		 1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+		 1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+		-1.0f,  1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,  0.0f,  0.0f, -1.0f,
+
+
+
+		-1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+		 1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+		 1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+		-1.0f,  1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+		-1.0f, -1.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+
+
+
+		-1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+		-1.0f,  1.0f, -1.0f, -1.0f,  0.0f,  0.0f,
+		-1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f,
+		-1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  0.0f,
+		-1.0f, -1.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+		-1.0f,  1.0f,  1.0f, -1.0f,  0.0f,  0.0f,
+
+
+
+		 1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f,
+		 1.0f,  1.0f, -1.0f,  1.0f,  0.0f,  0.0f,
+		 1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,
+		 1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  0.0f,
+		 1.0f, -1.0f,  1.0f,  1.0f,  0.0f,  0.0f,
+		 1.0f,  1.0f,  1.0f,  1.0f,  0.0f,  0.0f,
+
+
+
+		-1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f,
+		 1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f,
+		 1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+		 1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+		-1.0f, -1.0f,  1.0f,  0.0f, -1.0f,  0.0f,
+		-1.0f, -1.0f, -1.0f,  0.0f, -1.0f,  0.0f,
+
+
+
+		-1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+		 1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+		 1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+		 1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+		-1.0f,  1.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+		-1.0f,  1.0f, -1.0f,  0.0f,  1.0f,  0.0f
 	};
 
 	ew::Program program; 
-	program.createShaderFromFile("shaders\\basic.vert", GL_VERTEX_SHADER); 
-	program.createShaderFromFile("shaders\\basic.frag", GL_FRAGMENT_SHADER); 
+	program.createShaderFromFile("shaders\\gouraud.vert", GL_VERTEX_SHADER); 
+	program.createShaderFromFile("shaders\\gouraud.frag", GL_FRAGMENT_SHADER); 
 	program.link();
 	program.use();
 
-	ew::VertexIndexArray vertexArray; 
-	vertexArray.create("vertex"); 
-	
-	vertexArray.createBuffer(sizeof(vertices), sizeof(vertices) / (sizeof(float) * 5), vertices); 
-	vertexArray.setAttribute(0, 3, 5 * sizeof(float), 0); 
-	vertexArray.setAttribute(1, 2, 5 * sizeof(float), 3 * sizeof(float));
+	//ew::VertexIndexArray vertexArray; 
+	//vertexArray.create("vertex"); 
+	//
+	//vertexArray.createBuffer(sizeof(vertices), sizeof(vertices) / (sizeof(float) * 5), vertices); 
+	//vertexArray.setAttribute(0, 3, 5 * sizeof(float), 0); 
+	//vertexArray.setAttribute(1, 2, 5 * sizeof(float), 3 * sizeof(float));
 
-	vertexArray.createIndexBuffer(GL_UNSIGNED_SHORT, sizeof(indices) / sizeof(GLushort), indices);
+	//vertexArray.createIndexBuffer(GL_UNSIGNED_SHORT, sizeof(indices) / sizeof(GLushort), indices);
+
+	ew::VertexArray vertexArray;
+	vertexArray.create("vertex");
+
+	vertexArray.createBuffer(sizeof(vertices), sizeof(vertices) / (sizeof(float) * 6), vertices);
+	vertexArray.setAttribute(0, 3, 6 * sizeof(float), 0);
+	vertexArray.setAttribute(1, 6, 6 * sizeof(float), 3 * sizeof(float));
 
 	glm::mat4 model = glm::mat4(1.0f);
 
@@ -69,7 +131,14 @@ int main(int argc, char** argv) {
 
 	ew::Texture texture;
 	texture.createTexture("textures\\llama.jpg");
+
+	program.setUniform("material.ambient", glm::vec3{ 1, 1, 1 });
+	program.setUniform("material.diffuse", glm::vec3{ 1, 1, 1 });
 	
+	program.setUniform("light.ambient", glm::vec3{ 0.1f, 0.1f, 0.1f });
+	program.setUniform("light.diffuse", glm::vec3{ 0, 0, 1 });
+
+	glm::vec4 light{ 5, 5, 5, 1 };
 
 	bool quit = false; 
 
@@ -105,10 +174,10 @@ int main(int argc, char** argv) {
 			eye.x += 4 * engine.getTimer().deltaTime();
 		}
 		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_W) == ew::InputSystem::ButtonState::HELD) {
-			eye.z -= 4 * engine.getTimer().deltaTime();
+			eye.y += 4 * engine.getTimer().deltaTime();
 		}
 		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_S) == ew::InputSystem::ButtonState::HELD) {
-			eye.z += 4 * engine.getTimer().deltaTime();
+			eye.y -= 4 * engine.getTimer().deltaTime();
 		}
 		//if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_Q) == ew::InputSystem::ButtonState::HELD) {
 		//	eye.y -= 4 * engine.getTimer().deltaTime();
@@ -119,8 +188,13 @@ int main(int argc, char** argv) {
 		camera = glm::lookAt(eye, eye + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 
 		glm::mat4 mvp = projection * camera * model;
+		program.setUniform("mvp", mvp);
 
-		program.setUniform("transform", mvp);
+		glm::mat4 model_view = camera * model;
+		program.setUniform("model_view", model_view);
+
+		glm::vec4 position = camera * light;
+		program.setUniform("light.position", position);
 
 		engine.getSystem<ew::Renderer>()->beginFrame();
 
