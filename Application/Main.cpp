@@ -134,9 +134,12 @@ int main(int argc, char** argv) {
 
 	program.setUniform("material.ambient", glm::vec3{ 1, 1, 1 });
 	program.setUniform("material.diffuse", glm::vec3{ 1, 1, 1 });
+	program.setUniform("material.specular", glm::vec3{ 1, 1, 1 });
+	program.setUniform("material.shine", 1);
 	
 	program.setUniform("light.ambient", glm::vec3{ 0.1f, 0.1f, 0.1f });
 	program.setUniform("light.diffuse", glm::vec3{ 0, 0, 1 });
+	program.setUniform("light.specular", glm::vec3{ 1, 1, 1 });
 
 	glm::vec4 light{ 5, 5, 5, 1 };
 

@@ -8,7 +8,8 @@
 		struct Material {
 			vec3 ambient;
 			vec3 diffuse;
-
+			vec3 specular;
+			float shine;
 		};
 
 		uniform Material material;
@@ -17,7 +18,7 @@
 			vec4 position;
 			vec3 ambient;
 			vec3 diffuse;
-
+			vec3  specular;
 		};
 
 		uniform Light light;
@@ -36,9 +37,13 @@
 			float lDotN = max(dot(direction_to_light, normal), 0);
 			vec3 diffuse = material.diffuse * light.diffuse * lDotN;
 
+			vec3 specular = vec3(0);
+			if(lDotN > 0){
+				vec3 direction_to_view = normalize(-position.xyz);
 
+			}
 
-			fs_color = ambient + diffuse;
+			fs_color = ambient + diffuse + specular;
 
 			gl_Position = mvp * vec4(vs_position, 1.0);
 		}
