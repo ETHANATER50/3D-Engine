@@ -15,7 +15,7 @@ void ew::VertexArray::destroy()
     glDeleteBuffers(vbos.size(), vbos.data());
 }
 
-void ew::VertexArray::CreateBuffer(GLsizei size, GLsizei count, void* data)
+void ew::VertexArray::createBuffer(GLsizei size, GLsizei count, void* data)
 {
     this->count = count;
     GLuint vbo = 0;
@@ -26,13 +26,13 @@ void ew::VertexArray::CreateBuffer(GLsizei size, GLsizei count, void* data)
     vbos.push_back(vbo);
 }
 
-void ew::VertexArray::SetAttribute(int index, GLint size, GLsizei stride, size_t offset)
+void ew::VertexArray::setAttribute(int index, GLint size, GLsizei stride, size_t offset)
 {
     glEnableVertexAttribArray(index);
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, (void*)(offset));
 }
 
-void ew::VertexArray::Draw(GLenum primitiveType)
+void ew::VertexArray::draw(GLenum primitiveType)
 {
     glBindVertexArray(vao);
     glDrawArrays(primitiveType, 0, count);

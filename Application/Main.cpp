@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Engine/Engine.h"
+#include "Engine/Graphics/VertexIndexArray.h"
 
 int main(int argc, char** argv) {
 
@@ -50,23 +51,14 @@ int main(int argc, char** argv) {
 	program.link();
 	program.use();
 
+	ew::VertexIndexArray vertexArray; 
+	vertexArray.create("vertex"); 
+	
+	vertexArray.createBuffer(sizeof(vertices), sizeof(vertices) / (sizeof(float) * 5), vertices); 
+	vertexArray.setAttribute(0, 3, 5 * sizeof(float), 0); 
+	vertexArray.setAttribute(1, 2, 5 * sizeof(float), 3 * sizeof(float));
 
-
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), 0);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),(void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-
-	GLuint ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	vertexArray.createIndexBuffer(GL_UNSIGNED_SHORT, sizeof(indices) / sizeof(GLushort), indices);
 
 	glm::mat4 model = glm::mat4(1.0f);
 
@@ -132,9 +124,7 @@ int main(int argc, char** argv) {
 
 		engine.getSystem<ew::Renderer>()->beginFrame();
 
-		GLsizei numElements = sizeof(indices) /sizeof(GLushort);
-
-		glDrawElements(GL_TRIANGLES, numElements, GL_UNSIGNED_SHORT, 0);
+		vertexArray.draw();
 
 		engine.getSystem<ew::Renderer>()->endFrame();
 	}
