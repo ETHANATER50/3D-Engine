@@ -1,14 +1,10 @@
 #include "pch.h"
-#include <glad/glad.h>
-#include "Engine/Graphics/Renderer.h"
-#include "Engine/Graphics/Program.h"
-#include "Engine/Graphics/Texture.h"
+#include "Engine/Engine.h"
 
 int main(int argc, char** argv) {
 
-	ew::Renderer renderer;
-	renderer.startup();
-	renderer.create("OpenGL", 800, 600);
+	ew::Engine engine;
+	engine.startup();
 
 	//float vertices[] = {
 	//	-0.5f, -0.5f, 0, 1.0f, 0, 0, 0, 0,
@@ -72,11 +68,12 @@ int main(int argc, char** argv) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glm::mat4 transform = glm::mat4(1.0f);
-	program.setUniform("transform", transform);
+	glm::mat4 model = glm::mat4(1.0f);
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (800 / 600.0f), 0.01f, 1000.0f);
-	glm::mat4 camera = glm::lookAt(glm::vec3(0, -3, -5), glm::vec3(0, 0, 0), glm::vec3(0, -1, 0));
+
+	glm::vec3 eye{ 0, 0, 5 };
+	glm::mat4 camera = glm::lookAt(eye, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 
 	ew::Texture texture;
 	texture.createTexture("textures\\llama.jpg");
@@ -98,21 +95,50 @@ int main(int argc, char** argv) {
 		}
 		SDL_PumpEvents(); 
 
+		engine.update();
+		
+		float angle = 0;
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_E) == ew::InputSystem::ButtonState::HELD) {
+			angle = 2.0f;
+		}
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_Q) == ew::InputSystem::ButtonState::HELD) {
+			angle = -2.0f;
+		}
+		model = glm::rotate(model, angle * engine.getTimer().deltaTime(), glm::vec3(0, 1, 0));
 
-		transform = glm::rotate(transform, 0.001f, glm::vec3(0, 1, 0));
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_A) == ew::InputSystem::ButtonState::HELD) {
+			eye.x -= 4 * engine.getTimer().deltaTime();
+		}
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_D) == ew::InputSystem::ButtonState::HELD) {
+			eye.x += 4 * engine.getTimer().deltaTime();
+		}
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_W) == ew::InputSystem::ButtonState::HELD) {
+			eye.z -= 4 * engine.getTimer().deltaTime();
+		}
+		if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_S) == ew::InputSystem::ButtonState::HELD) {
+			eye.z += 4 * engine.getTimer().deltaTime();
+		}
+		//if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_Q) == ew::InputSystem::ButtonState::HELD) {
+		//	eye.y -= 4 * engine.getTimer().deltaTime();
+		//}
+		//if (engine.getSystem<ew::InputSystem>()->getButtonState(SDL_SCANCODE_E) == ew::InputSystem::ButtonState::HELD) {
+		//	eye.y += 4 * engine.getTimer().deltaTime();
+		//}
+		camera = glm::lookAt(eye, eye + glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 
-		glm::mat4 mvp = projection * camera * transform;
+		glm::mat4 mvp = projection * camera * model;
 
 		program.setUniform("transform", mvp);
 
-		renderer.beginFrame();
+		engine.getSystem<ew::Renderer>()->beginFrame();
 
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		GLsizei numElements = sizeof(indices) /sizeof(GLushort);
 
 		glDrawElements(GL_TRIANGLES, numElements, GL_UNSIGNED_SHORT, 0);
 
-		renderer.endFrame();
+		engine.getSystem<ew::Renderer>()->endFrame();
 	}
+	engine.shutdown();
+
 	return 0;
 }
